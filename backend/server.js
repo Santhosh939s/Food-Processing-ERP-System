@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// --- HEALTH CHECK ---
+app.get('/', (req, res) => {
+  res.send('✅ FoodFlow ERP API is running successfully!');
+});
+
 const JWT_SECRET = process.env.JWT_SECRET || 'secret-erp-key';
 
 mongoose.connect(process.env.MONGODB_URI, {
