@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { User, Material, Vendor, PurchaseOrder, Inventory, BOM, ProductionOrder } = require('./models/schemas');
@@ -115,6 +116,13 @@ app.post('/api/production/orders', async (req, res) => {
   const po = new ProductionOrder(req.body);
   await po.save();
   res.status(201).json(po);
+});
+
+// --- SERVE FRONTEND (For Production/Render) ---
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
