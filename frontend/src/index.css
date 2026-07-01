@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-sapBlue: #005f9e;
+  --color-sapDark: #1e293b;
+}
 
 @layer base {
   body {
